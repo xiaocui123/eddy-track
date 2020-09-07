@@ -15,6 +15,8 @@ from trackeddy.plotfunc import *
 
 import matplotlib.pyplot as plt
 from app.api.eddyObject import EddyObject
+from app.api.eddyObject import NumpyEncoder
+import json
 
 def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',areadic=None):
     # Open netcdf Dataset.
@@ -54,8 +56,8 @@ def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',
         centerlat = value["position_default"][0][1]
 
         ellipse = value["ellipse"]
-        shapelon = ellipse[0][0]
-        shapelat = ellipse[0][1]
+        shapelon = json.dump(ellipse[0][0],cls = NumpyEncoder)
+        shapelat = json.dump(ellipse[0][1],cls = NumpyEncoder)
         eddyies.append(EddyObject(centerlon,centerlat,shapelon,shapelat).toJSON())
 
     print(eddyies)
