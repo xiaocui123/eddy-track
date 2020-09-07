@@ -15,7 +15,7 @@ from trackeddy.plotfunc import *
 
 import matplotlib.pyplot as plt
 
-def track(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',areadic=None):
+def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',areadic=None):
     # Open netcdf Dataset.
     ncfile = Dataset(filepath)
     # Load data into memory
