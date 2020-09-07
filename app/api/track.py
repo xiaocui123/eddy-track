@@ -56,8 +56,8 @@ def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',
         centerlat = value["position_default"][0][1]
 
         ellipse = value["ellipse"]
-        shapelon = json.dump(ellipse[0][0],cls = NumpyEncoder)
-        shapelat = json.dump(ellipse[0][1],cls = NumpyEncoder)
+        shapelon = json.dumps(ellipse[0][0],cls = NumpyEncoder)
+        shapelat = json.dumps(ellipse[0][1],cls = NumpyEncoder)
         eddyies.append(EddyObject(centerlon,centerlat,shapelon,shapelat).toJSON())
 
     print(eddyies)
