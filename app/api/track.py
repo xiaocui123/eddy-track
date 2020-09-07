@@ -14,6 +14,7 @@ from trackeddy.physics import *
 from trackeddy.plotfunc import *
 
 import matplotlib.pyplot as plt
+from app.api.eddyObject import EddyObject
 
 def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',areadic=None):
     # Open netcdf Dataset.
@@ -46,4 +47,16 @@ def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',
                                    , areamap=areamap, areaparms=checkarea, filters=filters
                                    , maskopt='contour', diagnostics=False, pprint=True)
 
-    return positive_eddies
+    eddyies = []
+    for key in positive_eddies.keys():
+        value = positive_eddies.get(key)
+        centerlon = value["position_default"][0][0]
+        centerlat = value["position_default"][0][1]
+
+        ellipse = value["ellipse"]
+        shapelon = ellipse[0]
+        shapelat = ellipse[1]
+        eddyies.append(EddyObject(centerlon,centerlat,shapelon,shapelat))
+
+    print(eddyies)
+    return eddyies
