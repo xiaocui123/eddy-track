@@ -34,6 +34,7 @@ def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',
     else:
         areamap = array([[lon0,lon1],[lat0,lat1]]) # Global option
 
+    print(areamap)
     print("scope {0} {1} {2} {3}".format(lat[lat0],lat[lat1],lon[lon0],lon[lon1]))
     # Time and spatial filter
     filters = {'time': {'type': None, 't': None, 't0': None, 'value': None},
