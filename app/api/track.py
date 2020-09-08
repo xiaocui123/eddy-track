@@ -18,7 +18,7 @@ from app.api.eddyObject import EddyObject
 from app.api.eddyObject import NumpyEncoder
 import json
 
-def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',areadic=None):
+def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',lon0=None,lon1=None,lat0=None,lat1=None):
     # Open netcdf Dataset.
     ncfile = Dataset(filepath)
     # Load data into memory
@@ -29,9 +29,12 @@ def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',
     timeAttrEnd = ncfile.getncattr("time_coverage_end")
 
     # Define area of study
-    # areamap = array([[0,len(lon)],[0,len(lat)]]) # Global option
-    areamap = array([[1136,1248],[368,528]]) # Global option
+    if lon0 is not None:
+        areamap = array([[0,len(lon)],[0,len(lat)]]) # Global option
+    else:
+        areamap = array([[lon0,lon1],[lat0,lat1]]) # Global option
 
+    print("scope {0} {1} {2} {3}".format(lat[lat0],lat[lat1],lon[lon0],lon[lon1]))
     # Time and spatial filter
     filters = {'time': {'type': None, 't': None, 't0': None, 'value': None},
                'spatial': {'type': 'moving', 'window': 50, 'mode': 'uniform'}}
@@ -58,7 +61,6 @@ def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',
         ellipse = value["ellipse"]
         shapelon = json.dumps(ellipse[0][0],cls = NumpyEncoder)
         shapelat = json.dumps(ellipse[0][1],cls = NumpyEncoder)
-        eddyies.append(EddyObject(centerlon,centerlat,shapelon,shapelat).toJSON())
+        eddyies.append(EddyObject(timeAttrStart,centerlon,centerlat,shapelon,shapelat).toJSON())
 
-    print(eddyies)
     return eddyies

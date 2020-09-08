@@ -8,7 +8,8 @@ class NumpyEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 class EddyObject(object):
-    def __init__(self,centerlon,centerlat,shapelon,shapelat):
+    def __init__(self,datetime,centerlon,centerlat,shapelon,shapelat):
+        self.datetime = datetime
         self.centerlon = centerlon
         self.centerlat = centerlat
         self.shapelon =shapelon
