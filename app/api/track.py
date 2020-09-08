@@ -29,9 +29,7 @@ def trackeddy(filepath='../input/nrt_global_allsat_phy_l4_20200815_20200815.nc',
     timeAttrEnd = ncfile.getncattr("time_coverage_end")
 
     # Define area of study
-    if lon0 is not None:
-        print("why here")
-        print(lon0)
+    if lon0 is None:
         areamap = array([[0,len(lon)],[0,len(lat)]]) # Global option
     else:
         areamap = array([[lon0,lon1],[lat0,lat1]]) # Global option

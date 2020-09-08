@@ -18,8 +18,6 @@ def track():
     if 'filepath' not in data:
         return bad_request('must include filepath fields')
     if data['lat0Index'] is not None:
-        print("come into scope......")
-        print(data['lon0Index'])
         eddie = trackeddy(filepath=data['filepath'],lon0=data['lon0Index'],lon1=data['lon1Index'],lat0=data['lat0Index'],lat1=data['lat1Index'])
     else:
         eddie = trackeddy(filepath=data['filepath'])
